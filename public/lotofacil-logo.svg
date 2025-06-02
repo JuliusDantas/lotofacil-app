@@ -1,0 +1,7 @@
+<svg width="200" height="50" viewBox="0 0 200 50" xmlns="http://www.w3.org/2000/svg">
+  <g>
+    <path d="M40 25 A15 15 0 1 1 40 24.9" stroke="#DD0F7D" stroke-width="2" fill="none"/>
+    <circle cx="25" cy="25" r="3" fill="#DD0F7D"/>
+    <text x="60" y="35" fill="#DD0F7D" font-family="Arial Black" font-size="24" font-weight="bold">LOTOFÁCIL</text>
+  </g>
+</svg> 
