@@ -31,16 +31,30 @@ Aplicação web para registro e análise de resultados da Lotofácil.
 ### Funcionalidades
 
 1. **Registrar Resultado**
-   - Cadastro de resultados dos sorteios
-   - Campos:
+   - Cadastro manual de resultados dos sorteios:
      - Número do concurso
      - Data do sorteio
      - 15 números sorteados
+     - Rateio do prêmio por faixa (11 a 15 pontos)
+       - Número de ganhadores
+       - Valor do prêmio
+   - Importação automática de resultados:
+     - Botão "Importar Concurso"
+     - Modal para informar o número do concurso:
+       - Centralizado na tela
+       - Overlay escuro bloqueando a tela anterior
+       - Fechamento ao clicar fora ou no botão "Cancelar"
+       - Suporte a tecla Enter para submissão
+       - Estados visuais para carregamento e erro
+       - Feedback visual durante interações
+     - Busca automática dos dados na API
+     - Importação de todos os dados do concurso
    - Filtros por período
    - Visualização em grid com colunas:
      - Concurso
      - Data do Sorteio
      - Números Sorteados (separados por traço)
+     - Rateio do Prêmio (por faixa de acertos)
 
 2. **Análise de Resultados**
    - Análise dos últimos 12 meses de resultados
@@ -70,8 +84,34 @@ Aplicação web para registro e análise de resultados da Lotofácil.
 - `Sidebar`: Menu lateral
 - `TopBar`: Barra superior
 - `TelaRegistro`: Tela de registro de resultados
+  - `RegistroResultado`: Formulário de registro manual
+  - `ImportarConcursoModal`: Modal de importação de concurso
+    - Bloqueio de scroll da página
+    - Overlay com opacidade
+    - Interações intuitivas (clique fora para fechar)
+    - Estados de carregamento e erro
+    - Acessibilidade aprimorada
 - `TelaAnalise`: Tela de análise de resultados
-- `RegistroResultado`: Formulário de registro
+
+## Serviços
+
+- `lotofacilService`: 
+  - Integração com API externa
+  - Busca de resultados por número do concurso
+  - Busca do último resultado disponível
+  - Formatação de dados para o formato da aplicação
+
+## Interações e UX
+
+- **Modais**:
+  - Centralização automática
+  - Bloqueio de interação com a tela de fundo
+  - Overlay com opacidade para foco
+  - Fechamento por clique fora ou botão
+  - Feedback visual em todas as ações
+  - Estados de carregamento claros
+  - Suporte a navegação por teclado
+  - Acessibilidade ARIA
 
 ## Como Executar
 

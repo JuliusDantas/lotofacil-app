@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { LotofacilResult } from '../types';
 import RegistroResultado from './RegistroResultado';
+import ImportarConcursoModal from './ImportarConcursoModal';
 
 interface Props {
   resultados: LotofacilResult[];
@@ -11,6 +12,7 @@ interface Props {
 
 export default function TelaRegistro({ resultados, onSave }: Props) {
   const [showModal, setShowModal] = useState(false);
+  const [showImportModal, setShowImportModal] = useState(false);
   const [filtroInicio, setFiltroInicio] = useState('');
   const [filtroFim, setFiltroFim] = useState('');
 
@@ -33,31 +35,52 @@ export default function TelaRegistro({ resultados, onSave }: Props) {
 
   return (
     <div className="space-y-6" style={{ padding: '10px' }}>
-      <div className="bg-white rounded-lg shadow-md">
-        <div className="p-4 border-b border-gray-200 flex flex-wrap gap-4 items-center">
-          <div className="flex-1 min-w-[300px] flex gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700">Data Início</label>
-              <input
-                type="date"
-                value={filtroInicio}
-                onChange={(e) => setFiltroInicio(e.target.value)}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">Data Fim</label>
-              <input
-                type="date"
-                value={filtroFim}
-                onChange={(e) => setFiltroFim(e.target.value)}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-              />
-            </div>
+      <div className="p-4 border-b border-gray-200 flex flex-wrap gap-4 items-center">
+        <div className="flex-1 min-w-[300px] flex gap-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Data Início</label>
+            <input
+              type="date"
+              value={filtroInicio}
+              onChange={(e) => setFiltroInicio(e.target.value)}
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+            />
           </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Data Fim</label>
+            <input
+              type="date"
+              value={filtroFim}
+              onChange={(e) => setFiltroFim(e.target.value)}
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+            />
+          </div>
+        </div>
+        <div className="flex gap-2">
+          <button
+            onClick={() => setShowImportModal(true)}
+            className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 flex items-center disabled:bg-gray-400 disabled:cursor-not-allowed"
+            disabled={showImportModal}
+          >
+            <svg
+              className="w-5 h-5 mr-2"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"
+              />
+            </svg>
+            Importar Concurso
+          </button>
           <button
             onClick={() => setShowModal(true)}
-            className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 flex items-center"
+            className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 flex items-center disabled:bg-gray-400 disabled:cursor-not-allowed"
+            disabled={showImportModal}
           >
             <svg
               className="w-5 h-5 mr-2"
@@ -72,42 +95,53 @@ export default function TelaRegistro({ resultados, onSave }: Props) {
                 d="M12 4v16m8-8H4"
               />
             </svg>
-            Novo Resultado
+            Incluir Concurso
           </button>
         </div>
+      </div>
 
-        <div className="overflow-x-auto max-h-[calc(85vh-8rem)]">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
-              <tr>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Concurso
-                </th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Dt. Sorteio
-                </th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Números Sorteados
-                </th>
+      <div className="overflow-x-auto">
+        <table className="min-w-full divide-y divide-gray-200">
+          <thead className="bg-gray-50">
+            <tr>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Concurso
+              </th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Dt. Sorteio
+              </th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Números Sorteados
+              </th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Rateio Prêmio
+              </th>
+            </tr>
+          </thead>
+          <tbody className="bg-white divide-y divide-gray-200">
+            {resultadosFiltrados.map((resultado) => (
+              <tr key={resultado.concurso}>
+                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                  {resultado.concurso}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  {new Date(resultado.data).toLocaleDateString('pt-BR')}
+                </td>
+                <td className="px-6 py-4 text-sm text-gray-500">
+                  {resultado.numeros.join(' - ')}
+                </td>
+                <td className="px-6 py-4 text-sm text-gray-500">
+                  {resultado.rateioPremio?.map((rateio, index) => (
+                    <div key={index}>
+                      {rateio.faixa} pontos: {rateio.numeroDeGanhadores} ganhadores - 
+                      R$ {rateio.valorPremio.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                    </div>
+                  ))}
+                </td>
               </tr>
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
-              {resultadosFiltrados.map((resultado) => (
-                <tr key={resultado.concurso}>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                    {resultado.concurso}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {new Date(resultado.data).toLocaleDateString('pt-BR')}
-                  </td>
-                  <td className="px-6 py-4 text-sm text-gray-500">
-                    {resultado.numeros.join(' - ')}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+            ))}
+          </tbody>
+        </table>
       </div>
 
       {showModal && (
@@ -130,11 +164,18 @@ export default function TelaRegistro({ resultados, onSave }: Props) {
                   onSave(resultado);
                   setShowModal(false);
                 }}
+                isImportModalOpen={showImportModal}
               />
             </div>
           </div>
         </div>
       )}
+
+      <ImportarConcursoModal
+        isOpen={showImportModal}
+        onClose={() => setShowImportModal(false)}
+        onImport={onSave}
+      />
     </div>
   );
 } 

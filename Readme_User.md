@@ -9,6 +9,9 @@ Esta funcionalidade permite cadastrar os resultados dos sorteios da Lotofácil.
 ### Como cadastrar um resultado:
 
 1. No campo "Concurso", informe o número do concurso que deseja cadastrar
+   - Somente números inteiros positivos são aceitos
+   - O campo não permite a digitação de letras, caracteres especiais ou números negativos
+   - O valor deve ser maior que zero
 2. No campo "Data do Sorteio", selecione a data em que o sorteio ocorreu
 3. Na seção "Números Sorteados", selecione os 15 números que foram sorteados:
    - Clique nos números para selecioná-los
@@ -17,14 +20,25 @@ Esta funcionalidade permite cadastrar os resultados dos sorteios da Lotofácil.
    - Quando você selecionar um número, ele aparecerá destacado em azul
    - Os números selecionados aparecerão em ordem crescente separados por traço abaixo do grid
 4. O botão "Salvar Resultado" ficará habilitado somente quando:
-   - O número do concurso estiver preenchido
+   - O número do concurso estiver preenchido com um valor válido (inteiro positivo)
    - A data do sorteio estiver selecionada
    - Exatamente 15 números estiverem selecionados
 
-Após salvar, o resultado aparecerá na tabela abaixo com as seguintes informações:
+### Como importar um resultado:
+
+1. Clique no botão "Importar Concurso"
+2. No campo "Número do Concurso":
+   - Digite apenas números inteiros positivos
+   - Não é permitido digitar letras, caracteres especiais ou números negativos
+   - O valor deve ser maior que zero
+3. Clique em "Importar" para buscar o resultado
+4. Para sair da tela de importação, clique em "Cancelar"
+
+Após salvar ou importar, o resultado aparecerá na tabela abaixo com as seguintes informações:
 - Número do concurso
 - Data do sorteio
 - Números sorteados (separados por traço)
+- Rateio do prêmio (quando disponível)
 
 ## 2. Análise de Resultados
 
